@@ -13,3 +13,6 @@ include_directories(deps/leveldb/include)
 
 add_executable(test01 test01_simpleput.cc)
 target_link_libraries(test01 leveldb)
+
+add_executable(test02 test02_writebatch.cc)
+target_link_libraries(test02 leveldb)
