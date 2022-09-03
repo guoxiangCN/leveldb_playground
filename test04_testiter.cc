@@ -23,21 +23,23 @@ int main(int argc, char **argv)
     leveldb::WriteOptions wrtOpts;
     wrtOpts.sync = false;
 
-    char buf[1024] = {'0'};
-
-    tools::StopWatch wat__;
-    for (int i = 0; i < 100000; i++)
     {
-        memset(buf, 0, sizeof(buf));
-        sprintf(buf, "key_%08d", i);
-        s = db->Put(wrtOpts, buf, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaX");
-        if (!s.ok())
+        tools::StopWatch wat__;
+        char buf[1024] = {'0'};
+        for (int i = 0; i < 100000; i++)
         {
-            std::cout << s.ToString() << std::endl;
-            std::abort();
+            memset(buf, 0, sizeof(buf));
+            sprintf(buf, "key_%08d", i);
+            s = db->Put(wrtOpts, buf, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaX");
+            if (!s.ok())
+            {
+                std::cout << s.ToString() << std::endl;
+                std::abort();
+            }
         }
     }
 
+    tools::StopWatch sw__;
     leveldb::Iterator *iter = db->NewIterator(leveldb::ReadOptions{});
     tools::Defer _df([&]()
                      { delete iter; });
