@@ -16,3 +16,9 @@ target_link_libraries(test01 leveldb)
 
 add_executable(test02 test02_writebatch.cc)
 target_link_libraries(test02 leveldb)
+
+add_executable(test03 test03_testflush.cc)
+target_link_libraries(test03 leveldb)
+
+add_executable(test04 test04_testiter.cc)
+target_link_libraries(test04 leveldb)
